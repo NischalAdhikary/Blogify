@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+</head>
+
+<body>
+  <%- include('./partials/nav') %>
+ <% if (locals.post) { %>
+    <% post.forEach(element => { %>
+        <div class="col-md-3 mb-4"> <!-- Smaller size cards -->
+            <div class="card" style="width: 100%;">
+              <img src="<%= element.coverImage || '/default-image.jpg' %>" class="card-img-top" alt="Post Image" style="height: 150px; object-fit: cover;">
+              <div class="card-body">
+                <h6 class="card-title text-truncate"><%= element.title %></h6>
+                <p class="card-text text-truncate"><%= element.content %></p>
+                <div class="d-flex justify-content-between">
+                  <a href="/user/posts/<%= post._id %>/edit" class="btn btn-primary btn-sm">Edit</a>
+                  <form action="/user/posts/<%= post._id %>?_method=DELETE" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+    <% }) %>
+
+  
+ <% } %>
+  
+  
+  <%- include('./partials/scripts') %>
+</body>
+
+</html>

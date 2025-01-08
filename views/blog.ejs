@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+</head>
+
+<body>
+  <%- include('./partials/nav') %>
+  <div class="container">
+    <img src="<%= blog.coverImage %>" alt="Blog Image" class="img-fluid w-50 mt-3">
+
+  <h1><%= blog.title %></h1>
+  <p><%= blog.content %></p>
+  <a href="/" class="btn btn-secondary mt-3">Back to Blogs</a>
+</div>
+<div class="container mt-4">
+  <img src="<%=blog.createdBy.profileImageUrl%>" width="80px" >
+  <span>Created By:<%=blog.createdBy.fullName  %></span>
+</div> 
+<% if (locals.user) { %>
+  <div class="container mt-3">
+    <h1>Comment</h1>
+    <form action="/blog/comment/<%= blog._id %>" method="post">
+      <div class="mb-3">
+       
+        <input type="text" class="form-control" id="commentform" name="content">
+        
+      </div>
+      <div class="mb-3">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+    </div>
+ 
+<% } %>
+<div class="container mt-3" >
+  <% comment.forEach(com => { %>
+    <div>
+      <img src="<%=com.createdBy.profileImageUrl%>" width="60px" >
+  <span><%=com.createdBy.fullName %></span>
+  <p><%= com.content %></p>
+    </div>
+   
+  <% }) %>
+</div>
+  <%- include('./partials/scripts') %>
+</body>
+
+</html>
